@@ -77,7 +77,7 @@ bool Dungeon::genRoom()
 
 //Store possible directions in %dir_vec vector {{{
     std::vector<dir_t> dir_vec;
-    if (check(s_e, width, height)) {           //Line 182
+    if (check(s_e, width, height)) {
         dir_vec.push_back(s_e);
     }
     if (check(s_w, width, height)) {
