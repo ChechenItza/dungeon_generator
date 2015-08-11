@@ -304,7 +304,7 @@ void Dungeon::genVestibule(const dir_t& dir, int i)
     switch (dir) {
     case dir_t::s_w :
     case dir_t::n_e :
-        //If this vestibule is not collapsing with other rooms, then draw the walls
+        //Draw the walls if this vestibule is not collapsing with other rooms
         if (dungeon[room_vec[i].start_y + 1][room_vec[i].start_x + 1] == NOTHING) {
             dungeon[room_vec[i].start_y + 2][room_vec[i].start_x + 1] = WALL;
             dungeon[room_vec[i].start_y + 2][room_vec[i].start_x + 2] = WALL;
