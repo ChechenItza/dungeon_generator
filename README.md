@@ -12,8 +12,8 @@ Instead of `rnd::randomize()`, standart `rand()` function is being used if possi
 If unsure or not satisfied with the looks, use rand branch.
 
 ## Example
-# Master branch
+### Master branch
 ![Screenshot1](https://github.com/7Y3RPXK3ETDCNRDD/dungeon_generator/blob/screenshots/Screenshots/example.png)
 
-# rand branch
+### rand branch
 ![Screenshot2](https://github.com/7Y3RPXK3ETDCNRDD/dungeon_generator/blob/screenshots/Screenshots/2015-08-14-1439496514.png)
