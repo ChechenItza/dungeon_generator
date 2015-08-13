@@ -11,7 +11,7 @@ Size of the dungeon is specified in the `Constants.h` header by `D_WIDTH` and `D
 Instead of `rnd::randomize()`, standart `rand()` function is being used if possible.  
 If unsure or not satisfied with the looks, use rand branch.
 
-## Example
+## Examples
 ### Master branch
 ![Screenshot1](https://github.com/7Y3RPXK3ETDCNRDD/dungeon_generator/blob/screenshots/Screenshots/example.png)
 
