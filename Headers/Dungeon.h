@@ -1,10 +1,6 @@
 #ifndef DUNGEON_H
 #define DUNGEON_H
 
-#include <vector>
-#include "Constants.h"
-#include "Rand.h"
-
 //READ THIS:
 //The look of outcoming result depends on a few variables that you can adjust to your needs:
 //

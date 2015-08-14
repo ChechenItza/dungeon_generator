@@ -1,4 +1,7 @@
+#include <vector>
 #include "Dungeon.h"
+#include "Constants.h"
+#include "Rand.h"
 
 using namespace dng;
 

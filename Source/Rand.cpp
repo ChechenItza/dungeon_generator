@@ -1,3 +1,5 @@
+#include <random>
+#include <ctime>
 #include "Rand.h"
 
 std::mt19937 mt(time(NULL));
