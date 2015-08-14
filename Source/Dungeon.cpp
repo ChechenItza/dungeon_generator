@@ -279,7 +279,7 @@ void Dungeon::genPassages()
                     if (room_vec[i].dir == dir_t::s_e) {
                         dungeon[room_vec[i].start_y + 1][room_vec[i].start_x] = FLOOR;
                     } else if (room_vec[i].dir == dir_t::n_e) {
-                    genVestibule(dir_t::n_e, i);
+                        genVestibule(dir_t::n_e, i);
                     } else if (room_vec[i].dir == dir_t::n_w) {
                         dungeon[room_vec[i].start_y][room_vec[i].start_x - 1] = FLOOR;
                     }
