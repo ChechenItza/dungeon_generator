@@ -1,6 +1,8 @@
 #ifndef DUNGEON_H
 #define DUNGEON_H
 
+#include <vector>
+
 //READ THIS:
 //The look of outcoming result depends on a few variables that you can adjust to your needs:
 //
@@ -16,16 +18,14 @@
 // D_WIDTH
 
 namespace dng{
-    char** genDungeon();
-    void clrDungeon(char**);
-
-
     class Dungeon {
     public:
-        void genStart();
-        Dungeon(char**);
+        Dungeon(const int, const int);
+        ~Dungeon();
+        char* operator[](const int);
 
     private:
+        //User-defined types
         enum class dir_t {s_e, s_w, n_e, n_w};
         struct Room {
             int start_x, start_y;
@@ -36,16 +36,19 @@ namespace dng{
                 : start_x{x}, start_y{y}, end_x{xx}, end_y{yy}, dir{d} {};
         };
 
+        //Methods
         bool genRoom();
         bool check(const dir_t &, int, int) const;
         void genPassages();
         void genVestibule(const dir_t &, int);
 
-        std::vector<Room> room_vec;
-        char** dungeon;
-        bool is_executed;
-        int x_pos, y_pos;
-        int counter;
+        //Variables
+        std::vector<Room> room_vec_;
+        const int D_HEIGHT_,D_WIDTH_;
+        int x_pos_, y_pos_;
+        int counter_;
+        char** dungeon_;
+        bool is_executed_;
     };
 }
 

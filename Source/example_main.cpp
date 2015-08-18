@@ -12,18 +12,15 @@ int main()
     }
 
 //Generate dungeon
-    auto dungeon = dng::genDungeon();
+    dng::Dungeon dungeon(36,96);
 
 //Print dungeon to stream
-    for (int y = 0; y<D_HEIGHT; y++){
-        for (int x = 0; x<D_WIDTH; x++){
+    for (int y = 0; y < 36; y++){
+        for (int x = 0; x < 96; x++){
             out << dungeon[y][x];
         }
         out << "\n";
     }
-
-//De-Allocate memory
-    dng::clrDungeon(dungeon);
 
     return 0;
 }
