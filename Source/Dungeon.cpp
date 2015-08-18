@@ -5,7 +5,7 @@
 
 using namespace dng;
 
-Dungeon::Dungeon(const int height, const int width) : D_HEIGHT_{height}, D_WIDTH_{width}
+Dungeon::Dungeon(int height, int width) : D_HEIGHT_{height}, D_WIDTH_{width}
 {
 //Make the "canvas" {{{
     dungeon_ = new char*[D_HEIGHT_];
@@ -43,7 +43,7 @@ Dungeon::~Dungeon()
 }
 
 
-char* Dungeon::operator[](const int y)
+char* Dungeon::operator[](int y)
 {
     return dungeon_[y];
 }

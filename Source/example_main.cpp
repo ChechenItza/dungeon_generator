@@ -12,11 +12,13 @@ int main()
     }
 
 //Generate dungeon
-    dng::Dungeon dungeon(36,96);
+    const int Y = 36;
+    const int X = 96;
+    dng::Dungeon dungeon(Y, X);
 
 //Print dungeon to stream
-    for (int y = 0; y < 36; y++){
-        for (int x = 0; x < 96; x++){
+    for (int y = 0; y < Y; y++){
+        for (int x = 0; x < X; x++){
             out << dungeon[y][x];
         }
         out << "\n";

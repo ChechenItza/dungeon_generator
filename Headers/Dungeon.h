@@ -20,9 +20,9 @@
 namespace dng{
     class Dungeon {
     public:
-        Dungeon(const int, const int);
+        Dungeon(int, int);
         ~Dungeon();
-        char* operator[](const int);
+        char* operator[](int);
 
     private:
         //User-defined types
