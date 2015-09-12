@@ -1,6 +1,5 @@
 #include <fstream>
 #include "Dungeon.h"
-#include "Constants.h"
 
 int main()
 {
@@ -14,7 +13,8 @@ int main()
 //Generate dungeon
     const int Y = 36;
     const int X = 96;
-    dng::Dungeon dungeon(Y, X);
+    Dungeon dungeon(Y, X);
+    dungeon.generate();
 
 //Print dungeon to stream
     for (int y = 0; y < Y; y++){

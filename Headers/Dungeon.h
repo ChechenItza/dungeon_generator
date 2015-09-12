@@ -3,53 +3,47 @@
 
 #include <vector>
 
-//READ THIS:
-//The look of outcoming result depends on a few variables that you can adjust to your needs:
-//
-// ||| Dungeon.h |||
-// MIN_WIDTH           //NOTE:
-// MIN_HEIGHT          //If you change one of these consider adjusting others too
-// MAX_WIDTH           //for the better-looking result
-// MAX_HEIGHT
-// MIN_ROOM_NUM
-//
-// ||| Constants.h |||
-// D_HEIGHT
-// D_WIDTH
 
-namespace dng{
-    class Dungeon {
-    public:
-        Dungeon(int, int);
-        ~Dungeon();
-        char* operator[](int);
+class Dungeon {
+public:
+    Dungeon(int, int);
+    ~Dungeon();
+    char* operator[](int);
+    void generate();
 
-    private:
-        //User-defined types
-        enum class dir_t {s_e, s_w, n_e, n_w};
-        struct Room {
-            int start_x, start_y;
-            int end_x, end_y;
-            dir_t dir;
+    void setMin(int,int);
+    void setMax(int,int);
+    void setMinRoomNum(int);
 
-            Room(int x, int y, int xx, int yy, const dir_t &d)
-                : start_x{x}, start_y{y}, end_x{xx}, end_y{yy}, dir{d} {};
-        };
+    static char wall, floor, nothing;
+private:
+    //User-defined types
+    enum class dir_t {s_e, s_w, n_e, n_w};
+    struct Room {
+        int start_x, start_y;
+        int end_x, end_y;
+        dir_t dir;
 
-        //Methods
-        bool genRoom();
-        bool check(const dir_t &, int, int) const;
-        void genPassages();
-        void genVestibule(const dir_t &, int);
-
-        //Variables
-        std::vector<Room> room_vec_;
-        const int D_HEIGHT_,D_WIDTH_;
-        int x_pos_, y_pos_;
-        int counter_;
-        char** dungeon_;
-        bool is_executed_;
+        Room(int x, int y, int xx, int yy, const dir_t &d)
+            : start_x{x}, start_y{y}, end_x{xx}, end_y{yy}, dir{d} {};
     };
-}
+
+    //Methods
+    bool genRoom();
+    bool check(const dir_t &, int, int) const;
+    void genPassages();
+    void genVestibule(const dir_t &, int);
+
+    //Variables
+    const int D_HEIGHT, D_WIDTH;
+    std::vector<Room> room_vec_;
+    int r_min_height, r_min_width;
+    int r_max_height, r_max_width;
+    int x_pos_, y_pos_;
+    int counter_;
+    int min_room_num;
+    char** dungeon_;
+    bool is_executed_;
+};
 
 #endif //DUNGEON_H

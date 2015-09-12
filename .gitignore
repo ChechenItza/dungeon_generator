@@ -2,3 +2,4 @@
 /Output
 *.py
 *.pyc
+*.el

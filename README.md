@@ -2,13 +2,15 @@
 C++ program that generates two dimensional array of chars that looks like a dungeon. 
 
 ## Usage
-There is two functions in the `Dungeon.h` header: `genDungeon()` and `clrDungeon()`. `genDungeon()` returns `char** dungeon` and `clrDungeon()` deallocates `dungeon` from the memory.  
-Size of the dungeon is specified in the `Constants.h` header by `D_WIDTH` and `D_HEIGHT` constant variables. Characters that represent `Wall`, `Floor` and `Nothing` are also defined there.  
+Simply, pass the dungeon's desired height and width to the constructor when
+instantiating an `dng::Dungeon` object. Further, treat an object as you would
+treat an two dimensional array.    
+Also, you can change the characters that will represent walls, floor and nothing before contructing the dungeon. They're all static so you access them like this: `Dungeon::wall` (default is '#'), `Dungeon::floor` (default is '-') and `Dungeon::nothing` (default is '.')  
   
 `C++11` is required.
 
 ## rand branch
-Instead of `rnd::randomize()`, standart `rand()` function is being used if possible.  
+Instead of `rnd::randomize()`, standart `rand()` function is being used where it's possible.  
 If unsure or not satisfied with the looks, use rand branch.
 
 ## Examples
