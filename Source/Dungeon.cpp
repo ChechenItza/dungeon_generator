@@ -3,11 +3,6 @@
 #include <cstdio>
 
 
-char Dungeon::wall = '#';
-char Dungeon::floor = '-';
-char Dungeon::nothing = '.';
-
-
 void Dungeon::setMin(int height, int width)
 {
     if (height < 3 || height > D_HEIGHT
@@ -28,6 +23,20 @@ void Dungeon::setMax(int height, int width)
 }
 
 
+void Dungeon::setChars(char wall, char floor, char nothing)
+{
+    Dungeon::wall = wall;
+    Dungeon::floor = floor;
+    Dungeon::nothing = nothing;
+
+    for (int y = 0; y < D_HEIGHT; y++) {
+        for (int x = 0; x < D_WIDTH; x++) {
+            dungeon_[y][x] = nothing;
+        }
+    }
+}
+
+
 void Dungeon::setMinRoomNum(int num)
 {
     if (num < 0)
@@ -38,23 +47,19 @@ void Dungeon::setMinRoomNum(int num)
 
 Dungeon::Dungeon(int height, int width) : D_HEIGHT{height}, D_WIDTH{width}
 {
-//Set the default parameters
-    setMin(4,4);
-    setMax(D_HEIGHT/4, D_WIDTH/7);
-    setMinRoomNum(30);
-
 //Make the "canvas" {{{
     dungeon_ = new char*[D_HEIGHT];
     for (int i = 0; i < D_HEIGHT; i++)
         dungeon_[i] = new char[D_WIDTH];
-
-    for (int y = 0; y < D_HEIGHT; y++) {
-        for (int x = 0; x < D_WIDTH; x++) {
-            dungeon_[y][x] = nothing;
-        }
-    }
 //}}}
 
+//Set the default parameters {{{
+    setMin(4,4);
+    setMax(D_HEIGHT/4, D_WIDTH/7);
+    setChars('#','-','.');
+    setMinRoomNum(30);
+//}}}
+    
 //Starting point of the first room
     y_pos_ = rnd::randomize(D_HEIGHT);
     x_pos_ = rnd::randomize(D_WIDTH);

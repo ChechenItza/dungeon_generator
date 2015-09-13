@@ -13,9 +13,9 @@ public:
 
     void setMin(int,int);
     void setMax(int,int);
+    void setChars(char,char,char);
     void setMinRoomNum(int);
 
-    static char wall, floor, nothing;
 private:
     //User-defined types
     enum class dir_t {s_e, s_w, n_e, n_w};
@@ -39,6 +39,7 @@ private:
     std::vector<Room> room_vec_;
     int r_min_height, r_min_width;
     int r_max_height, r_max_width;
+    char wall, floor, nothing;
     int x_pos_, y_pos_;
     int counter_;
     int min_room_num;
