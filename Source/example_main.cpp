@@ -14,6 +14,9 @@ int main()
     const int Y = 36;
     const int X = 96;
     Dungeon dungeon(Y, X);
+    dungeon.setMax(Y/5, X/7);
+    dungeon.setMinRoomNum(40);
+    dungeon.setChars('#','.',' ');
     dungeon.generate();
 
 //Print dungeon to stream
