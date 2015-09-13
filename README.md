@@ -3,9 +3,13 @@ C++ program that generates two dimensional array of chars that looks like a dung
 
 ## Usage
 Simply, pass the dungeon's desired height and width to the constructor when
-instantiating an `dng::Dungeon` object. Further, treat an object as you would
-treat an two dimensional array.    
-Also, you can change the characters that will represent walls, floor and nothing before contructing the dungeon. They're all static so you access them like this: `Dungeon::wall` (default is '#'), `Dungeon::floor` (default is '-') and `Dungeon::nothing` (default is '.')  
+instantiating an `Dungeon` object. After object is created, you can set the dungeon's room parameters by calling one of these methods:
+1. `setMin(height,width)` sets the minimum possible height and width of the room. `4,4` is default.  
+2. `setMax(height,width)` sets the maximum possible height and width of the room. `D_HEIGHT/4, D_WIDTH/7` is default.  
+3. `setChars(wall,floor,nothing)` sets the characters that will represent walls, floor and nothing. `'#','-','.'` is default.  
+4. `setMinRoomNum(num)` sets the minimum possible number of rooms (!It is not guaranteed that number of rooms will be equal to this). `30` is default.  
+
+After all parameters are set, call `generate` function to generate the dungeon. Further, treat an object as you would treat two dimensional array.    
   
 `C++11` is required.
 
