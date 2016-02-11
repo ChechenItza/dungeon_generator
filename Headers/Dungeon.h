@@ -35,14 +35,14 @@ private:
     void genVestibule(const dir_t &, int);
 
     //Variables
-    const int D_HEIGHT, D_WIDTH;
+    const int D_HEIGHT_, D_WIDTH_;
     std::vector<Room> room_vec_;
-    int r_min_height, r_min_width;
-    int r_max_height, r_max_width;
-    char wall, floor, nothing;
+    int r_min_height_, r_min_width_;
+    int r_max_height_, r_max_width_;
+    char wall_, floor_, nothing_;
     int x_pos_, y_pos_;
     int counter_;
-    int min_room_num;
+    int min_room_num_;
     char** dungeon_;
     bool is_executed_;
 };

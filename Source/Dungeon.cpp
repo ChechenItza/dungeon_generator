@@ -5,33 +5,33 @@
 
 void Dungeon::setMin(int height, int width)
 {
-    if (height < 3 || height > D_HEIGHT
-	    || width < 3 || width > D_WIDTH)
-	perror("Wrong setMin() parameters. It has to be more than 2 and less than or equal to D_HEIGHT/D_WIDTH");
-    Dungeon::r_min_height = height;
-    Dungeon::r_min_width = width;
+    if (height < 3 || height > D_HEIGHT_
+	    || width < 3 || width > D_WIDTH_)
+	perror("Wrong setMin() parameters. It has to be more than 2 and less than or equal to D_HEIGHT_/D_WIDTH_");
+    Dungeon::r_min_height_ = height;
+    Dungeon::r_min_width_ = width;
 }
 
 
 void Dungeon::setMax(int height, int width)
 {
-    if (height < r_min_height || height > D_HEIGHT
-	    || width < r_min_width || width > D_WIDTH)
-	perror("Wrong setMax() parameters. It should be more than r_min_height/r_min_width and less than or equal to D_HEIGHT/D_WIDTH");
-    Dungeon::r_max_height = height;
-    Dungeon::r_max_width = width;
+    if (height < r_min_height_ || height > D_HEIGHT_
+	    || width < r_min_width_ || width > D_WIDTH_)
+	perror("Wrong setMax() parameters. It should be more than r_min_height_/r_min_width_ and less than or equal to D_HEIGHT_/D_WIDTH_");
+    Dungeon::r_max_height_ = height;
+    Dungeon::r_max_width_ = width;
 }
 
 
 void Dungeon::setChars(char wall, char floor, char nothing)
 {
-    Dungeon::wall = wall;
-    Dungeon::floor = floor;
-    Dungeon::nothing = nothing;
+    Dungeon::wall_ = wall;
+    Dungeon::floor_ = floor;
+    Dungeon::nothing_ = nothing;
 
-    for (int y = 0; y < D_HEIGHT; y++) {
-        for (int x = 0; x < D_WIDTH; x++) {
-            dungeon_[y][x] = nothing;
+    for (int y = 0; y < D_HEIGHT_; y++) {
+        for (int x = 0; x < D_WIDTH_; x++) {
+            dungeon_[y][x] = nothing_;
         }
     }
 }
@@ -41,28 +41,28 @@ void Dungeon::setMinRoomNum(int num)
 {
     if (num < 0)
 	perror("Wrong setMinRoomNum() parameter. It has to be more than or equal to 0");
-    Dungeon::min_room_num = num;
+    Dungeon::min_room_num_ = num;
 }
 
 
-Dungeon::Dungeon(int height, int width) : D_HEIGHT{height}, D_WIDTH{width}
+Dungeon::Dungeon(int height, int width) : D_HEIGHT_{height}, D_WIDTH_{width}
 {
 //Make the "canvas" {{{
-    dungeon_ = new char*[D_HEIGHT];
-    for (int i = 0; i < D_HEIGHT; i++)
-        dungeon_[i] = new char[D_WIDTH];
+    dungeon_ = new char*[D_HEIGHT_];
+    for (int i = 0; i < D_HEIGHT_; i++)
+        dungeon_[i] = new char[D_WIDTH_];
 //}}}
 
 //Set the default parameters {{{
     setMin(4,4);
-    setMax(D_HEIGHT/4, D_WIDTH/7);
+    setMax(D_HEIGHT_/4, D_WIDTH_/7);
     setChars('#','-','.');
     setMinRoomNum(30);
 //}}}
-    
+
 //Starting point of the first room
-    y_pos_ = rnd::randomize(D_HEIGHT);
-    x_pos_ = rnd::randomize(D_WIDTH);
+    y_pos_ = rnd::randomize(D_HEIGHT_);
+    x_pos_ = rnd::randomize(D_WIDTH_);
 
 //This is needed for genRoom() (recursive calls)
     counter_ = 1;
@@ -73,7 +73,7 @@ Dungeon::Dungeon(int height, int width) : D_HEIGHT{height}, D_WIDTH{width}
 Dungeon::~Dungeon()
 {
     //De-Allocate memory
-    for (int i = 0; i < D_HEIGHT; ++i)
+    for (int i = 0; i < D_HEIGHT_; ++i)
         delete [] dungeon_[i];
     delete [] dungeon_;
 }
@@ -95,9 +95,9 @@ char* Dungeon::operator[](int y)
 
 bool Dungeon::genRoom()
 {
-//Room width and height 
-    int width = rnd::randomize(r_min_width, r_max_width);
-    int height = rnd::randomize(r_min_height, r_max_height);
+//Room width and height
+    int width = rnd::randomize(r_min_width_, r_max_width_);
+    int height = rnd::randomize(r_min_height_, r_max_height_);
 
 //s_e - south east; s_w - south west; n_e - north east; n_w - north west;
     dir_t s_e = dir_t::s_e;  dir_t n_e = dir_t::n_e;
@@ -121,7 +121,7 @@ bool Dungeon::genRoom()
 
 //Do a little trick if there is no possible directions and less than %min_room_num rooms {{{
     //!!! It is not guaranteed that the number of rooms will be equal to %min_room_num
-    if (dir_vec.empty() && room_vec_.size() < min_room_num) {
+    if (dir_vec.empty() && room_vec_.size() < min_room_num_) {
         if (room_vec_.size() - counter_ > 0) {
             x_pos_ = room_vec_[room_vec_.size() - counter_].end_x;
             y_pos_ = room_vec_[room_vec_.size() - counter_].end_y;
@@ -148,9 +148,9 @@ bool Dungeon::genRoom()
             for (int x = x_pos_; x < x_pos_ + width; x++) {
                 if (y == y_pos_ || y == y_pos_ + (height-1)
                         || x == x_pos_ || x == x_pos_ + (width-1)) {
-                    dungeon_[y][x] = wall;
+                    dungeon_[y][x] = wall_;
                 } else {
-                    dungeon_[y][x] = floor;
+                    dungeon_[y][x] = floor_;
                 }
             }
         }
@@ -167,9 +167,9 @@ bool Dungeon::genRoom()
             for (int x = x_pos_; x > x_pos_ - width; x--) {
                 if (y == y_pos_ || y == y_pos_ + (height-1)
                         || x == x_pos_ || x == x_pos_ - (width-1)) {
-                    dungeon_[y][x] = wall;
+                    dungeon_[y][x] = wall_;
                 } else {
-                    dungeon_[y][x] = floor;
+                    dungeon_[y][x] = floor_;
                 }
             }
         }
@@ -184,9 +184,9 @@ bool Dungeon::genRoom()
             for (int x = x_pos_; x < x_pos_ + width; x++) {
                 if (y == y_pos_ || y == y_pos_ - (height-1)
                         || x == x_pos_ || x == x_pos_ + (width-1)) {
-                    dungeon_[y][x] = wall;
+                    dungeon_[y][x] = wall_;
                 } else {
-                    dungeon_[y][x] = floor;
+                    dungeon_[y][x] = floor_;
                 }
             }
         }
@@ -201,9 +201,9 @@ bool Dungeon::genRoom()
             for (int x = x_pos_; x > x_pos_ - width; x--) {
                 if (y == y_pos_ || y == y_pos_ - (height-1)
                         || x == x_pos_ || x == x_pos_ - (width-1)) {
-                    dungeon_[y][x] = wall;
+                    dungeon_[y][x] = wall_;
                 } else {
-                    dungeon_[y][x] = floor;
+                    dungeon_[y][x] = floor_;
                 }
             }
         }
@@ -226,34 +226,34 @@ bool Dungeon::check(const dir_t& dir, int width, int height) const
     //Check if it's possible to make room in the direction(%dir) that was passed
     switch(dir) {
     case dir_t::s_e:
-        if (y_pos_ + height <= D_HEIGHT && x_pos_ + width <= D_WIDTH) {
+        if (y_pos_ + height <= D_HEIGHT_ && x_pos_ + width <= D_WIDTH_) {
             for (int y = y_pos_; y < y_pos_ + height; y++) {
                 for (int x = x_pos_; x < x_pos_ + width; x++) {
                     if (y == y_pos_ || y == y_pos_ + (height-1)
-                            || x == x_pos_ || x == x_pos_ + (width-1)) continue; //Ignore wall collision
-                    if (dungeon_[y][x] != nothing) return false;
+                            || x == x_pos_ || x == x_pos_ + (width-1)) continue; //Ignore wall_ collision
+                    if (dungeon_[y][x] != nothing_) return false;
                 }
             }
         } else return false;
         return true;
     case dir_t::s_w:
-        if (y_pos_ + height <= D_HEIGHT && x_pos_ - width >= 0) {
+        if (y_pos_ + height <= D_HEIGHT_ && x_pos_ - width >= 0) {
             for (int y = y_pos_; y < y_pos_ + height; y++) {
                 for (int x = x_pos_; x > x_pos_ - width; x--) {
                     if (y == y_pos_ || y == y_pos_ + (height-1)
                             || x == x_pos_ || x == x_pos_ - (width-1)) continue;
-                    if (dungeon_[y][x] != nothing) return false;
+                    if (dungeon_[y][x] != nothing_) return false;
                 }
             }
         } else return false;
         return true;
     case dir_t::n_e:
-        if (y_pos_ - height >= 0 && x_pos_ + width <= D_WIDTH) {
+        if (y_pos_ - height >= 0 && x_pos_ + width <= D_WIDTH_) {
             for (int y = y_pos_; y > y_pos_ - height; y--) {
                 for (int x = x_pos_; x < x_pos_ + width; x++) {
                     if (y == y_pos_ || y == y_pos_ - (height-1)
                             || x == x_pos_ || x == x_pos_ + (width-1)) continue;
-                    if (dungeon_[y][x] != nothing) return false;
+                    if (dungeon_[y][x] != nothing_) return false;
                 }
             }
         } else return false;
@@ -264,7 +264,7 @@ bool Dungeon::check(const dir_t& dir, int width, int height) const
                 for (int x = x_pos_; x > x_pos_ - width; x--) {
                     if (y == y_pos_ || y == y_pos_ - (height-1)
                             || x == x_pos_ || x == x_pos_ - (width-1)) continue;
-                    if (dungeon_[y][x] != nothing) return false;
+                    if (dungeon_[y][x] != nothing_) return false;
                 }
             }
         } else return false;
@@ -288,34 +288,34 @@ void Dungeon::genPassages()
                     if (room_vec_[i].dir == dir_t::s_e) {  //Because nested switches look ugly
                         genVestibule(dir_t::s_e, i);
                     } else if (room_vec_[i].dir == dir_t::s_w) {
-                        dungeon_[room_vec_[i].start_y][room_vec_[i].start_x - 1] = floor;
+                        dungeon_[room_vec_[i].start_y][room_vec_[i].start_x - 1] = floor_;
                     } else if (room_vec_[i].dir == dir_t::n_e) {
-                        dungeon_[room_vec_[i].start_y - 1][room_vec_[i].start_x] = floor;
+                        dungeon_[room_vec_[i].start_y - 1][room_vec_[i].start_x] = floor_;
                     }
                     break;
                 case dir_t::s_w :
                     if (room_vec_[i].dir == dir_t::s_e) {
-                        dungeon_[room_vec_[i].start_y][room_vec_[i].start_x + 1] = floor;
+                        dungeon_[room_vec_[i].start_y][room_vec_[i].start_x + 1] = floor_;
                     } else if (room_vec_[i].dir == dir_t::s_w) {
                         genVestibule(dir_t::s_w, i);
                     } else if (room_vec_[i].dir == dir_t::n_w) {
-                        dungeon_[room_vec_[i].start_y - 1][room_vec_[i].start_x] = floor;
+                        dungeon_[room_vec_[i].start_y - 1][room_vec_[i].start_x] = floor_;
                     }
                     break;
                 case dir_t::n_e :
                     if (room_vec_[i].dir == dir_t::s_e) {
-                        dungeon_[room_vec_[i].start_y + 1][room_vec_[i].start_x] = floor;
+                        dungeon_[room_vec_[i].start_y + 1][room_vec_[i].start_x] = floor_;
                     } else if (room_vec_[i].dir == dir_t::n_e) {
                         genVestibule(dir_t::n_e, i);
                     } else if (room_vec_[i].dir == dir_t::n_w) {
-                        dungeon_[room_vec_[i].start_y][room_vec_[i].start_x - 1] = floor;
+                        dungeon_[room_vec_[i].start_y][room_vec_[i].start_x - 1] = floor_;
                     }
                     break;
                 case dir_t::n_w :
                     if (room_vec_[i].dir == dir_t::s_w) {
-                        dungeon_[room_vec_[i].start_y + 1][room_vec_[i].start_x] = floor;
+                        dungeon_[room_vec_[i].start_y + 1][room_vec_[i].start_x] = floor_;
                     } else if (room_vec_[i].dir == dir_t::n_e) {
-                        dungeon_[room_vec_[i].start_y][room_vec_[i].start_x + 1] = floor;
+                        dungeon_[room_vec_[i].start_y][room_vec_[i].start_x + 1] = floor_;
                     } else if (room_vec_[i].dir == dir_t::n_w) {
                         genVestibule(dir_t::n_w, i);
                     }
@@ -334,50 +334,50 @@ void Dungeon::genVestibule(const dir_t& dir, int i)
     switch (dir) {
     case dir_t::s_w :
     case dir_t::n_e :
-        //Draw the walls if this vestibule is not collapsing with other rooms
-        if (dungeon_[room_vec_[i].start_y + 1][room_vec_[i].start_x + 1] == nothing) {
-            dungeon_[room_vec_[i].start_y + 2][room_vec_[i].start_x + 1] = wall;
-            dungeon_[room_vec_[i].start_y + 2][room_vec_[i].start_x + 2] = wall;
-            dungeon_[room_vec_[i].start_y + 1][room_vec_[i].start_x + 2] = wall;
+        //Draw the wall_s if this vestibule is not collapsing with other rooms
+        if (dungeon_[room_vec_[i].start_y + 1][room_vec_[i].start_x + 1] == nothing_) {
+            dungeon_[room_vec_[i].start_y + 2][room_vec_[i].start_x + 1] = wall_;
+            dungeon_[room_vec_[i].start_y + 2][room_vec_[i].start_x + 2] = wall_;
+            dungeon_[room_vec_[i].start_y + 1][room_vec_[i].start_x + 2] = wall_;
         }
-        if (dungeon_[room_vec_[i].start_y - 1][room_vec_[i].start_x - 1] == nothing) {
-            dungeon_[room_vec_[i].start_y - 2][room_vec_[i].start_x - 2] = wall;
-            dungeon_[room_vec_[i].start_y - 2][room_vec_[i].start_x - 1] = wall;
-            dungeon_[room_vec_[i].start_y - 1][room_vec_[i].start_x - 2] = wall;
+        if (dungeon_[room_vec_[i].start_y - 1][room_vec_[i].start_x - 1] == nothing_) {
+            dungeon_[room_vec_[i].start_y - 2][room_vec_[i].start_x - 2] = wall_;
+            dungeon_[room_vec_[i].start_y - 2][room_vec_[i].start_x - 1] = wall_;
+            dungeon_[room_vec_[i].start_y - 1][room_vec_[i].start_x - 2] = wall_;
         }
 
-        dungeon_[room_vec_[i].start_y - 1][room_vec_[i].start_x] = floor;
-        dungeon_[room_vec_[i].start_y - 1][room_vec_[i].start_x + 1] = floor;
-        dungeon_[room_vec_[i].start_y - 1][room_vec_[i].start_x - 1] = floor;
-        dungeon_[room_vec_[i].start_y + 1][room_vec_[i].start_x - 1] = floor;
-        dungeon_[room_vec_[i].start_y + 1][room_vec_[i].start_x] = floor;
-        dungeon_[room_vec_[i].start_y + 1][room_vec_[i].start_x + 1] = floor;
-        dungeon_[room_vec_[i].start_y][room_vec_[i].start_x - 1] = floor;
-        dungeon_[room_vec_[i].start_y][room_vec_[i].start_x + 1] = floor;
-        dungeon_[room_vec_[i].start_y][room_vec_[i].start_x] = floor;
+        dungeon_[room_vec_[i].start_y - 1][room_vec_[i].start_x] = floor_;
+        dungeon_[room_vec_[i].start_y - 1][room_vec_[i].start_x + 1] = floor_;
+        dungeon_[room_vec_[i].start_y - 1][room_vec_[i].start_x - 1] = floor_;
+        dungeon_[room_vec_[i].start_y + 1][room_vec_[i].start_x - 1] = floor_;
+        dungeon_[room_vec_[i].start_y + 1][room_vec_[i].start_x] = floor_;
+        dungeon_[room_vec_[i].start_y + 1][room_vec_[i].start_x + 1] = floor_;
+        dungeon_[room_vec_[i].start_y][room_vec_[i].start_x - 1] = floor_;
+        dungeon_[room_vec_[i].start_y][room_vec_[i].start_x + 1] = floor_;
+        dungeon_[room_vec_[i].start_y][room_vec_[i].start_x] = floor_;
         break;
     case dir_t::s_e :
     case dir_t::n_w :
-        if (dungeon_[room_vec_[i].start_y + 1][room_vec_[i].start_x - 1] == nothing) {
-            dungeon_[room_vec_[i].start_y + 2][room_vec_[i].start_x - 1] = wall;
-            dungeon_[room_vec_[i].start_y + 2][room_vec_[i].start_x - 2] = wall;
-            dungeon_[room_vec_[i].start_y + 1][room_vec_[i].start_x - 2] = wall;
+        if (dungeon_[room_vec_[i].start_y + 1][room_vec_[i].start_x - 1] == nothing_) {
+            dungeon_[room_vec_[i].start_y + 2][room_vec_[i].start_x - 1] = wall_;
+            dungeon_[room_vec_[i].start_y + 2][room_vec_[i].start_x - 2] = wall_;
+            dungeon_[room_vec_[i].start_y + 1][room_vec_[i].start_x - 2] = wall_;
         }
-        if (dungeon_[room_vec_[i].start_y - 1][room_vec_[i].start_x + 1] == nothing) {
-            dungeon_[room_vec_[i].start_y - 2][room_vec_[i].start_x + 2] = wall;
-            dungeon_[room_vec_[i].start_y - 2][room_vec_[i].start_x + 1] = wall;
-            dungeon_[room_vec_[i].start_y - 1][room_vec_[i].start_x + 2] = wall;
+        if (dungeon_[room_vec_[i].start_y - 1][room_vec_[i].start_x + 1] == nothing_) {
+            dungeon_[room_vec_[i].start_y - 2][room_vec_[i].start_x + 2] = wall_;
+            dungeon_[room_vec_[i].start_y - 2][room_vec_[i].start_x + 1] = wall_;
+            dungeon_[room_vec_[i].start_y - 1][room_vec_[i].start_x + 2] = wall_;
         }
 
-        dungeon_[room_vec_[i].start_y - 1][room_vec_[i].start_x] = floor;
-        dungeon_[room_vec_[i].start_y - 1][room_vec_[i].start_x + 1] = floor;
-        dungeon_[room_vec_[i].start_y - 1][room_vec_[i].start_x - 1] = floor;
-        dungeon_[room_vec_[i].start_y + 1][room_vec_[i].start_x - 1] = floor;
-        dungeon_[room_vec_[i].start_y + 1][room_vec_[i].start_x] = floor;
-        dungeon_[room_vec_[i].start_y + 1][room_vec_[i].start_x + 1] = floor;
-        dungeon_[room_vec_[i].start_y][room_vec_[i].start_x - 1] = floor;
-        dungeon_[room_vec_[i].start_y][room_vec_[i].start_x + 1] = floor;
-        dungeon_[room_vec_[i].start_y][room_vec_[i].start_x] = floor;
+        dungeon_[room_vec_[i].start_y - 1][room_vec_[i].start_x] = floor_;
+        dungeon_[room_vec_[i].start_y - 1][room_vec_[i].start_x + 1] = floor_;
+        dungeon_[room_vec_[i].start_y - 1][room_vec_[i].start_x - 1] = floor_;
+        dungeon_[room_vec_[i].start_y + 1][room_vec_[i].start_x - 1] = floor_;
+        dungeon_[room_vec_[i].start_y + 1][room_vec_[i].start_x] = floor_;
+        dungeon_[room_vec_[i].start_y + 1][room_vec_[i].start_x + 1] = floor_;
+        dungeon_[room_vec_[i].start_y][room_vec_[i].start_x - 1] = floor_;
+        dungeon_[room_vec_[i].start_y][room_vec_[i].start_x + 1] = floor_;
+        dungeon_[room_vec_[i].start_y][room_vec_[i].start_x] = floor_;
         break;
     }
 }
