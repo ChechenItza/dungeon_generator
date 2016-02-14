@@ -6,7 +6,7 @@
 
 class Dungeon {
 public:
-    Dungeon(int, int);
+    Dungeon(const int&, const int&);
     ~Dungeon();
     char* operator[](int);
     void generate();
@@ -30,7 +30,7 @@ private:
 
     //Methods
     bool genRoom();
-    bool check(const dir_t &, int, int) const;
+    bool check(const dir_t &, int, int);
     void genPassages();
     void genVestibule(const dir_t &, int);
 

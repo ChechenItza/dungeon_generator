@@ -45,7 +45,7 @@ void Dungeon::setMinRoomNum(int num)
 }
 
 
-Dungeon::Dungeon(int height, int width) : D_HEIGHT_{height}, D_WIDTH_{width}
+Dungeon::Dungeon(const int& height, const int& width) : D_HEIGHT_{height}, D_WIDTH_{width}
 {
 //Make the "canvas" {{{
     dungeon_ = new char*[D_HEIGHT_];
@@ -221,7 +221,7 @@ bool Dungeon::genRoom()
 }
 
 
-bool Dungeon::check(const dir_t& dir, int width, int height) const
+bool Dungeon::check(const dir_t& dir, int width, int height)
 {
     //Check if it's possible to make room in the direction(%dir) that was passed
     switch(dir) {
