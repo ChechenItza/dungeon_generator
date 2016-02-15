@@ -6,7 +6,7 @@
 
 class Dungeon {
 public:
-    Dungeon(const int&, const int&);
+    Dungeon(int, int);
     ~Dungeon();
     char* operator[](int);
     void generate();
