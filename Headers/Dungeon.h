@@ -406,22 +406,24 @@ void Dungeon::genVestibule(const dir_t& dir, int i)
             dungeon_[room_vec_[i].start_y + 2][room_vec_[i].start_x - 1] = wall_;
             dungeon_[room_vec_[i].start_y + 2][room_vec_[i].start_x - 2] = wall_;
             dungeon_[room_vec_[i].start_y + 1][room_vec_[i].start_x - 2] = wall_;
+            dungeon_[room_vec_[i].start_y + 1][room_vec_[i].start_x - 1] = floor_;
+            dungeon_[room_vec_[i].start_y + 1][room_vec_[i].start_x] = floor_;
+            dungeon_[room_vec_[i].start_y + 1][room_vec_[i].start_x + 1] = floor_;
+            dungeon_[room_vec_[i].start_y][room_vec_[i].start_x - 1] = floor_;
+            dungeon_[room_vec_[i].start_y][room_vec_[i].start_x + 1] = floor_;
+            dungeon_[room_vec_[i].start_y][room_vec_[i].start_x] = floor_;
         }
         if (dungeon_[room_vec_[i].start_y - 1][room_vec_[i].start_x + 1] == nothing_) {
             dungeon_[room_vec_[i].start_y - 2][room_vec_[i].start_x + 2] = wall_;
             dungeon_[room_vec_[i].start_y - 2][room_vec_[i].start_x + 1] = wall_;
             dungeon_[room_vec_[i].start_y - 1][room_vec_[i].start_x + 2] = wall_;
+            dungeon_[room_vec_[i].start_y - 1][room_vec_[i].start_x] = floor_;
+            dungeon_[room_vec_[i].start_y - 1][room_vec_[i].start_x + 1] = floor_;
+            dungeon_[room_vec_[i].start_y - 1][room_vec_[i].start_x - 1] = floor_;
+            dungeon_[room_vec_[i].start_y][room_vec_[i].start_x - 1] = floor_;
+            dungeon_[room_vec_[i].start_y][room_vec_[i].start_x + 1] = floor_;
+            dungeon_[room_vec_[i].start_y][room_vec_[i].start_x] = floor_;
         }
-
-        dungeon_[room_vec_[i].start_y - 1][room_vec_[i].start_x] = floor_;
-        dungeon_[room_vec_[i].start_y - 1][room_vec_[i].start_x + 1] = floor_;
-        dungeon_[room_vec_[i].start_y - 1][room_vec_[i].start_x - 1] = floor_;
-        dungeon_[room_vec_[i].start_y + 1][room_vec_[i].start_x - 1] = floor_;
-        dungeon_[room_vec_[i].start_y + 1][room_vec_[i].start_x] = floor_;
-        dungeon_[room_vec_[i].start_y + 1][room_vec_[i].start_x + 1] = floor_;
-        dungeon_[room_vec_[i].start_y][room_vec_[i].start_x - 1] = floor_;
-        dungeon_[room_vec_[i].start_y][room_vec_[i].start_x + 1] = floor_;
-        dungeon_[room_vec_[i].start_y][room_vec_[i].start_x] = floor_;
         break;
     }
 }
