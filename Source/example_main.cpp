@@ -5,18 +5,18 @@
 int main()
 {
 //Set the file stream
-    std::ofstream out("dungeon.txt");
+    std::ofstream out("Output/dungeon.txt");
     if(out.fail()){
         perror("dungeon.txt");
         return 1;
     }
 
 //Generate dungeon
-    const int Y = 36;
-    const int X = 96;
+    const int Y = 59;
+    const int X = 221;
     std::unique_ptr<Dungeon> dungeon(new Dungeon(Y, X));
-    dungeon->setMax(Y/5, X/7);
-    dungeon->setMinRoomNum(40);
+    dungeon->setMax(Y/5, X/9);
+    dungeon->setMinRoomNum(60);
     dungeon->setChars('#','.',' ');
     dungeon->generate();
 
