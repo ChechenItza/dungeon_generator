@@ -4,11 +4,13 @@
 #include <random>
 #include <ctime>
 
+
 //FORWARD DECLARATION
 namespace rnd {
     int randomize(int, int);
     int randomize(int);
 }
+
 
 //DEFINITON
 std::mt19937 mt(time(NULL));
