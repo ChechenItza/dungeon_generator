@@ -13,12 +13,7 @@ After all parameters are set, call `generate` function to generate the dungeon. 
   
 `C++11` is required.
 
-### rand branch
-Instead of `rnd::randomize()`, standart `rand()` function is used where it's possible.  
-
 ## Examples
-### Master branch
 ![Screenshot1](https://github.com/7Y3RPXK3ETDCNRDD/dungeon_generator/blob/screenshots/Screenshots/example.png)
 
-### rand branch
 ![Screenshot2](https://github.com/7Y3RPXK3ETDCNRDD/dungeon_generator/blob/screenshots/Screenshots/2015-08-14-1439496514.png)
